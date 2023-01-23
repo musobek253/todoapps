@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class Rejalar_sanasi extends StatelessWidget {
   // const Rejalar_sanasi({Key? key}) : super(key: key);
+  final Function selectdate;
+  final DateTime the_appointed_day;
+  final Function() nextday;
+  final Function() lastday;
+
+  Rejalar_sanasi(this.selectdate, this.the_appointed_day,this.nextday,this.lastday);
+
 
   @override
   Widget build(BuildContext context) {
@@ -11,23 +18,25 @@ class Rejalar_sanasi extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.arrow_left, size: 35)),
+          IconButton(
+              onPressed: lastday,
+              icon: Icon(Icons.arrow_left, size: 35)),
           TextButton(
-              onPressed: () {},
+              onPressed: () {selectdate(context);},
               child: RichText(
-                  text: const TextSpan(
+                  text: TextSpan(
                 style: TextStyle(fontSize: 20, color: Colors.black),
                 children: [
                   TextSpan(
-                    text: "Friday , ",
+                    text: "${DateFormat.EEEE().format(the_appointed_day)} ,",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  TextSpan(
-                    text: "6 Aug",
+                   TextSpan(
+                    text: "${DateFormat("d MMM").format(the_appointed_day)}",
                   ),
                 ],
               ))),
-          IconButton(onPressed: () {}, icon: Icon(Icons.arrow_right, size: 35)),
+          IconButton(onPressed: nextday, icon: Icon(Icons.arrow_right, size: 35)),
         ],
       ),
     );
